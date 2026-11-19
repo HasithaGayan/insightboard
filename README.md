@@ -5,15 +5,13 @@ Professional Business Analytics Dashboard
 
 ## Overview
 
-InsightBoard is a responsive analytics dashboard
-designed to present business performance through
-reusable components, key statistics and clear
-data visualization.
+InsightBoard is a responsive business analytics
+dashboard built with React and TypeScript.
 
-The project is being developed as a professional
-frontend portfolio project, with a focus on
-maintainability, accessibility, type safety
-and software quality.
+The project demonstrates reusable component
+architecture, interactive data management,
+type safety, responsive design and
+professional software development practices.
 
 ## Project Status
 
@@ -21,20 +19,50 @@ and software quality.
 - Started: 19 November 2026
 - Development Roadmap: Day 24–40
 - Status: In Development
-- Current milestone: React + TypeScript Foundation
+- Current Milestone: Interactive React Dashboard
 
 ## Current Features
 
-- Responsive dashboard layout
-- Reusable React components
-- TypeScript interfaces and typed props
-- Dynamic statistics rendering
-- Stable list keys
+### Dashboard
+
+- Responsive statistics cards
+- Business performance overview using demo data
+- Show and hide percentage changes
+- Show and hide statistics
+- Persistent display preferences
+- Reset preferences
+
+### Interactive Watchlist
+
+- Add custom metric names
+- Pause and resume metrics
+- Delete metrics
+- Search metrics
+- Filter by monitoring status
+- Sort alphabetically
+- Automatically calculated summary counts
 - Empty-state handling
-- Reusable buttons
+- Duplicate and empty name validation
+- Persistent browser storage
+- Reset watchlist
+
+### User Experience
+
+- Native project information modal
+- Keyboard-accessible form submission
+- Escape key dialog support
+- Responsive desktop, tablet and mobile CSS
+- Validation feedback
 - Custom application branding
 - Keyboard focus indicators
-- Responsive CSS Grid and Flexbox layouts
+
+### Learning Exercise
+
+- Interactive counter demonstrating React state
+- Increment, decrement and reset operations
+- Negative value prevention
+
+The counter is a temporary learning exercise.
 
 ## Technology Stack
 
@@ -46,9 +74,11 @@ and software quality.
 - Node.js
 - npm
 - Git and GitHub
+- React Developer Tools
+- Browser localStorage
 
 See [versions.md](./versions.md) for exact
-technology versions and environment details.
+technology versions.
 
 ## Project Structure
 
@@ -61,7 +91,11 @@ technology versions and environment details.
     │   │   ├── Card.tsx
     │   │   ├── Header.tsx
     │   │   ├── Layout.tsx
-    │   │   └── StatCard.tsx
+    │   │   ├── StatCard.tsx
+    │   │   ├── Counter.tsx
+    │   │   ├── Watchlist.tsx
+    │   │   ├── ProjectInfoDialog.tsx
+    │   │   └── ProjectInfoDialog.css
     │   ├── data/
     │   │   └── dashboardStats.ts
     │   ├── types/
@@ -78,42 +112,66 @@ technology versions and environment details.
 
 ## Application Architecture
 
-The application follows a component-based
-architecture with a clear separation of concerns.
+InsightBoard uses component-based architecture
+with local state ownership and reusable UI
+components.
 
+- App: Dashboard preferences and modal state
 - Layout: Shared application structure
-- Header: Project identity
+- Header: Application identity
 - Card: Reusable content container
-- StatCard: Individual dashboard statistics
-- Button: Reusable user actions
-- Data: Demonstration dashboard records
-- Types: TypeScript data contracts
+- StatCard: Dashboard statistics
+- Button: Reusable typed button
+- Counter: Primitive state practice
+- Watchlist: Interactive metric management
+- ProjectInfoDialog: Native modal synchronization
+
+## State Management
+
+React useState manages primitive, object
+and array state.
+
+Objects and arrays are updated immutably
+using the spread operator, map and filter.
+
+Search results, sorted records and summary
+counts are derived during rendering instead
+of being stored in redundant state.
 
 ## Data Flow
 
-    Dashboard Types
+    User Interaction
           |
           v
-    Dashboard Data
+    Typed Event Handler
           |
           v
-        App
+    State Update
           |
           v
-      StatCard
+    React Re-render
           |
           v
-        Card
-          |
-          v
-    User Interface
+    Updated User Interface
 
-The App component imports typed dashboard data
-and renders reusable StatCard components using
-the JavaScript map method.
+## Browser Storage
 
-An empty-state message is displayed when
-no dashboard statistics are available.
+Dashboard preferences and Watchlist records
+are synchronized with localStorage using
+React Effects.
+
+Saved records are validated before use.
+
+The application handles:
+
+- Missing saved data
+- Invalid JSON
+- Incorrect property types
+- Invalid Watchlist records
+- Duplicate identifiers
+- Storage access failures
+
+Invalid saved data falls back to defaults.
 
 ## Getting Started
 
@@ -130,8 +188,6 @@ no dashboard statistics are available.
 
     npm run dev
 
-Open the local URL displayed in the terminal.
-
 ### Code Quality
 
     npm run lint
@@ -140,59 +196,92 @@ Open the local URL displayed in the terminal.
 
     npm run build
 
-### Preview Production Build
+### Production Preview
 
     npm run preview
+
+Open the URL displayed in the terminal.
 
 Windows PowerShell users may use npm.cmd
 instead of npm when required.
 
 ## Quality Checks
 
-Day 24 results:
+### Day 24
 
 - TypeScript compilation: Passed
 - Production build: Passed
 - Lint warnings: 0
 - Lint errors: 0
-- Empty-state manual test: Passed
 
-## Challenges and Solutions
+### Day 25
+
+- TypeScript compilation: Passed
+- Production build: Passed
+- Lint warnings: 0
+- Lint errors: 0
+- Functional testing: Manually tested
+- Corrupted preferences recovery: Tested
+- React DevTools profiling: Completed
+
+## Debugging and Challenges
 
 ### React Render Purity
 
-A lint warning occurred because the Layout
-component calculated the current year
-during rendering.
+The Layout component originally calculated
+the current year during rendering.
 
-The calculation was moved outside the
-component function to maintain render purity.
+Moving the calculation outside the component
+resolved the lint warning.
 
-Linting subsequently passed with zero
-warnings and zero errors.
+### Corrupted Browser Data
+
+Invalid JSON was deliberately stored in
+localStorage to test application recovery.
+
+The application caught the parsing error,
+restored default preferences and continued
+working without crashing.
+
+### Derived Data
+
+Search results, sorting and summary counts
+are calculated from existing state.
+
+This reduces state duplication and avoids
+unnecessary synchronization Effects.
+
+### React Rendering
+
+React DevTools Profiler was used to inspect
+Counter state updates.
+
+The selected development recording showed
+that Counter caused the update without
+re-rendering the Watchlist.
 
 ## Planned Features
 
-- Interactive search and filtering
-- Dashboard charts
+- Interactive dashboard charts
 - Users and orders pages
-- Detail pages and routing
-- Shared application state
-- API data fetching
+- Routing and detail pages
+- API integration
 - Loading and error states
-- Automated tests
+- Automated behavioral tests
 - Next.js migration
 - Tailwind CSS
 - Production deployment
 
 ## Current Limitations
 
-The dashboard currently uses demonstration data.
-
-The report export feature is not implemented.
-
-API integration, authentication, charts and
-advanced interactions are not yet implemented.
+- Business statistics use demonstration data.
+- Watchlist statuses are user-managed labels,
+  not real-time monitoring of business metrics.
+- Data is stored locally in the browser.
+- Report export is not implemented.
+- Authentication is not implemented.
+- Automated behavioral tests are upcoming.
+- The counter is a temporary learning feature.
 
 ## Live Demo
 
