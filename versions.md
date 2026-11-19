@@ -69,3 +69,5 @@ and zero errors.
 - Use npm ci for reproducible installations.
 - Test the application after dependency updates.
 - Document future technology migrations.
+
+- React Router: 7.18.6
