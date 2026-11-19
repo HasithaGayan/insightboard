@@ -5,39 +5,38 @@ Professional Business Analytics Dashboard
 
 ## Overview
 
-InsightBoard is a responsive multi-page business
+InsightBoard is a responsive, data-driven business
 analytics dashboard built with React and TypeScript.
 
-The application demonstrates reusable component
-architecture, interactive data management,
-accessible forms, asynchronous operations,
-client-side routing and shared state management.
+The project demonstrates component architecture,
+accessible forms, asynchronous programming,
+client-side routing, shared state management
+and external API integration.
 
 ## Project Status
 
 - Major Project: 02 of 05
 - Started: 19 November 2026
-- Development Roadmap: Day 24–40
+- Development Roadmap: Day 24-40
 - Status: In Development
-- Current Milestone: Multi-page Dashboard
+- Current Milestone: API-Powered Dashboard
 
 ## Current Features
 
 ### Dashboard
 
 - Responsive business statistics cards
-- Demonstration business performance data
+- Demonstration business performance metrics
 - Show and hide statistics
 - Show and hide percentage changes
 - Persistent display preferences
-- Native project information modal
+- Project information modal
 
 ### Interactive Watchlist
 
-- Add and delete metrics
-- Pause and resume metrics
+- Add, delete, pause and resume metrics
 - Search, filter and sort records
-- Automatically calculated summary counts
+- Derived summary counts
 - Empty-state handling
 - Duplicate and empty name validation
 - Persistent browser storage
@@ -45,33 +44,43 @@ client-side routing and shared state management.
 
 ### Feedback and Support
 
-- Controlled multi-field feedback form
-- TypeScript validation utilities
+- Controlled multi-field form
+- Type-safe validation utilities
 - Required-field and length validation
 - Basic email format validation
 - Accessible labels and field errors
 - Automatic invalid-field focus
 - Reusable FormField component
 - Live character counter
-- Idle, pending, success and failure states
 - Simulated asynchronous submission
-- Duplicate submission prevention
-- Input preservation after failure
-- Automatic reset after success
+- Idle, pending, success and failure states
+- Duplicate submission protection
+- Input preservation on failure
+- Automatic reset on success
 
-### User Directory
+### API-Powered User Directory
 
-- Five fictional demonstration users
-- Responsive user cards
-- Active and inactive user summaries
+- External DummyJSON API integration
+- Up to 20 fetched user records
+- Runtime API response validation
+- Normalized user records
 - Dynamic user details pages
-- Account role and status labels
+- Account role summary cards
+- Case-insensitive name and email search
+- Account role filtering
+- Alphabetical and numerical sorting
+- Derived result counts
+- Clear filters and refresh controls
+- Loading skeleton/message behavior
+- Empty API and empty search states
+- Error handling and retry functionality
 - Missing-user handling
+- Obsolete request cancellation
 
-### Navigation and Settings
+### Routing and Settings
 
 - React Router client-side navigation
-- Shared application layout
+- Shared navigation and layout
 - Active navigation styles
 - Dynamic route parameters
 - Unknown-route handling
@@ -81,16 +90,16 @@ client-side routing and shared state management.
 
 ### User Experience
 
-- Responsive CSS Grid and Flexbox layouts
+- Responsive CSS Grid and Flexbox
 - Keyboard-accessible controls
 - Visible focus indicators
+- Reduced-motion-aware loading spinner
 - Escape key modal support
-- Custom application branding
 
 ### Learning Exercise
 
-The dashboard includes a temporary Counter
-component for demonstrating React state.
+A temporary Counter component demonstrates
+fundamental React state management.
 
 ## Technology Stack
 
@@ -99,6 +108,9 @@ component for demonstrating React state.
 - React Router
 - Vite
 - CSS
+- Fetch API
+- AbortController
+- DummyJSON REST API
 - Oxlint
 - Node.js
 - npm
@@ -106,7 +118,7 @@ component for demonstrating React state.
 - React Developer Tools
 - Browser localStorage
 
-See [versions.md](./versions.md) for
+See [versions.md](./versions.md) for exact
 technology versions.
 
 ## Application Routes
@@ -114,17 +126,13 @@ technology versions.
 | Route | Description |
 | --- | --- |
 | / | Dashboard overview |
-| /users | User directory |
+| /users | API-powered user directory |
 | /users/:id | Individual user details |
 | /settings | Shared display preferences |
 | * | Page not found |
 
-The details page retrieves a record using
-the route parameter rather than depending
-on previous navigation history.
-
-Invalid user identifiers display a
-dedicated User Not Found message.
+User details are independently fetched using
+the route identifier.
 
 ## Project Structure
 
@@ -132,41 +140,33 @@ dedicated User Not Found message.
     ├── public/
     ├── src/
     │   ├── components/
-    │   │   ├── Button.tsx
-    │   │   ├── Card.tsx
-    │   │   ├── Header.tsx
-    │   │   ├── Layout.tsx
-    │   │   ├── StatCard.tsx
-    │   │   ├── Navigation.tsx
-    │   │   ├── Navigation.css
-    │   │   ├── Counter.tsx
-    │   │   ├── Watchlist.tsx
-    │   │   ├── ProjectInfoDialog.tsx
-    │   │   ├── ProjectInfoDialog.css
-    │   │   ├── FeedbackForm.tsx
-    │   │   ├── FeedbackForm.css
-    │   │   └── FormField.tsx
     │   ├── context/
-    │   │   ├── preferencesContext.ts
-    │   │   └── PreferencesProvider.tsx
+    │   │   ├── PreferencesProvider.tsx
+    │   │   └── preferencesContext.ts
+    │   ├── data/
+    │   │   ├── dashboardStats.ts
+    │   │   └── users.ts
+    │   ├── hooks/
+    │   │   └── useAsyncData.ts
     │   ├── pages/
     │   │   ├── DashboardPage.tsx
     │   │   ├── UsersPage.tsx
     │   │   ├── UserDetailsPage.tsx
     │   │   ├── UsersPage.css
+    │   │   ├── UsersFilters.css
     │   │   ├── SettingsPage.tsx
     │   │   └── SettingsPage.css
-    │   ├── data/
-    │   │   ├── dashboardStats.ts
-    │   │   └── users.ts
     │   ├── services/
-    │   │   └── feedbackService.ts
+    │   │   ├── feedbackService.ts
+    │   │   └── userService.ts
     │   ├── types/
     │   │   ├── dashboard.ts
     │   │   ├── feedback.ts
-    │   │   └── user.ts
+    │   │   ├── user.ts
+    │   │   └── apiUser.ts
     │   ├── utils/
-    │   │   └── validateFeedback.ts
+    │   │   ├── validateFeedback.ts
+    │   │   └── filterUsers.ts
     │   ├── App.tsx
     │   ├── App.css
     │   ├── index.css
@@ -181,79 +181,127 @@ dedicated User Not Found message.
     App
       └── PreferencesProvider
           └── BrowserRouter
-              └── DashboardLayout
+              └── Shared DashboardLayout
                   ├── Header
                   ├── Navigation
                   ├── Outlet
                   │   ├── DashboardPage
                   │   ├── UsersPage
                   │   ├── UserDetailsPage
-                  │   ├── SettingsPage
-                  │   └── Not Found
+                  │   └── SettingsPage
                   └── Footer
 
-Shared navigation and layout remain mounted
-while the matched child route changes.
+## API Integration
+
+Data source:
+
+https://dummyjson.com/docs/users
+
+Endpoints:
+
+- GET /users?limit=20
+- GET /users/:id
+
+The API provides fictional demonstration users.
+
+The service selects and validates the required
+user fields before passing normalized data
+to React components.
+
+HTTP errors and malformed data are handled
+explicitly.
+
+A missing user returns a dedicated
+User Not Found state.
+
+## API Data Flow
+
+    User Action or Route Change
+                |
+                v
+          useAsyncData
+                |
+                v
+          userService
+                |
+                v
+         External REST API
+                |
+                v
+      Validate HTTP and JSON
+                |
+                v
+        Normalize Records
+                |
+                v
+         React State Update
+                |
+                v
+       Search / Filter / Sort
+                |
+                v
+         Render Components
+
+The reusable asynchronous Hook manages
+loading, success and error states.
+
+AbortController cancels obsolete requests
+during Effect cleanup.
+
+Aborted requests are prevented from updating
+the current UI.
+
+Retry attempts and loader identities are
+checked before displaying stored results.
 
 ## State Management
 
 ### Local State
 
-Feature-specific state remains local to the
-relevant component.
+Feature-specific state remains inside
+its corresponding component.
 
-Examples include Counter, Watchlist, feedback
-form values and modal visibility.
-
-Object and array state updates are immutable.
+Examples include feedback inputs, Watchlist,
+search filters, modal visibility and Counter.
 
 ### Shared Context
 
-PreferencesProvider owns dashboard display
-preferences and their update functions.
+PreferencesProvider owns display preferences.
 
 DashboardPage and SettingsPage consume
 the same values through usePreferences.
 
-Context avoids duplicated preference state
-and unnecessary prop drilling.
+### Derived Data
+
+Search results, role counts, sorted records
+and validation errors are derived from
+existing data instead of duplicated in state.
+
+The filterUsers utility does not mutate
+the original API array.
 
 ### External State Libraries
 
-Redux Toolkit and Zustand may be useful
-for more complex shared-state requirements.
+Redux Toolkit and Zustand are possible future
+options for more complex shared state.
 
-They are not currently necessary for this
-application's limited shared preferences.
-
-### Derived Data
-
-Filtered records, sorted records, summary
-counts and validation errors are derived
-from existing state.
-
-Unnecessary synchronization Effects
-are avoided.
+They are not currently required.
 
 ## Browser Storage
 
-Dashboard preferences and Watchlist
-records are persisted using localStorage.
+Display preferences and Watchlist records
+are persisted through localStorage.
 
-Saved data is validated before use.
+Stored data is validated before use.
 Invalid data falls back to defaults.
 
-Preferences remain compatible with
-previous development milestones.
-
-Feedback information is not persisted.
-Unsaved local form state may reset when
-navigating away from the dashboard.
+Feedback and API user records are not
+persisted in browser storage by the app.
 
 ## Feedback Submission
 
-The asynchronous feedback service
-simulates a 1.5-second network delay.
+The feedback service simulates a
+1.5-second network delay.
 
 Use fictional test data only.
 
@@ -264,12 +312,12 @@ No feedback is transmitted, stored or emailed.
 
 ## Getting Started
 
-### Development Environment
+### Requirements
 
 - Node.js 24.19.0
 - npm 11.17.0
 
-### Installation
+### Install Dependencies
 
     npm ci
 
@@ -294,106 +342,132 @@ Open the URL displayed in the terminal.
 Windows PowerShell users may use npm.cmd
 instead of npm when required.
 
-## Deployment Considerations
-
-BrowserRouter requires the production host
-to support SPA fallback to index.html.
-
-Direct URLs and page refreshes must work
-without previous client-side navigation.
-
-Live deployment is planned for a later
-development milestone.
-
 ## Development Milestones
 
-### Day 24 — React Foundation
+### Day 24 - React Foundation
 
 - Typed reusable components
 - Props and component composition
 - Responsive dashboard layout
 
-### Day 25 — Interactive Dashboard
+### Day 25 - Interactive Dashboard
 
 - React state and typed events
 - Immutable state updates
-- Persistent preferences and Watchlist
+- Persistent Watchlist and preferences
 - Search, filtering and sorting
 - React DevTools and Profiler
 
-### Day 26 — Accessible Forms
+### Day 26 - Accessible Forms
 
-- Multi-field controlled forms
+- Controlled multi-field forms
 - Independent validation utilities
 - Accessible error handling
 - Asynchronous submission states
 - Duplicate submission protection
 
-### Day 27 — Routing and Context
+### Day 27 - Routing and Context
 
 - React Router integration
-- Shared navigation and layout
-- User directory and dynamic routes
-- Missing-record and unknown-route handling
+- Shared layouts and navigation
+- Dynamic user details routes
+- Missing-record handling
 - Shared preferences provider
-- Functional settings page
-- Local and shared state boundaries
+- Functional Settings page
+
+### Day 28 - API Integration
+
+- Reusable API service
+- Runtime response validation
+- API data normalization
+- Generic asynchronous React Hook
+- Loading, empty, success and error states
+- Retry and refresh functionality
+- Search, role filtering and sorting
+- Request cancellation
+- Chrome Network inspection
+- API response overrides for testing
 
 ## Quality Assurance
 
+Development checks:
+
 - Clean dependency installation
-- Oxlint checks
+- Oxlint
 - TypeScript compilation
-- Vite production builds
-- Manual functional testing
-- Validation boundary testing
-- Keyboard accessibility testing
-- Responsive layout testing
-- Direct-route and refresh testing
-- Shared-state synchronization testing
+- Vite production build
+
+Manual test scenarios:
+
+- Dashboard and navigation regression
+- Controlled form validation
+- Direct URL navigation and refresh
+- Responsive layouts and keyboard controls
+- Successful API responses
+- Empty API responses
+- Malformed API records
+- Offline errors and retry
+- Missing user identifiers
+- Request cancellation
+- Combined search and filters
+
+Automated behavioral tests are planned.
 
 ## Technical Challenges
 
-### React Render Purity
+### Render Purity
 
 Moved the current-year calculation outside
-the Layout component to resolve a lint warning.
+Layout to resolve a React purity warning.
 
 ### Invalid Browser Data
 
-Implemented saved-data validation and
-fallback defaults for localStorage recovery.
+Implemented validation and fallback defaults
+for corrupted localStorage records.
 
 ### Duplicate Submissions
 
-Combined pending state with a ref-based
-lock to prevent overlapping operations.
+Used pending state and a ref-based lock
+to prevent overlapping submissions.
 
 ### Windows Dependency File Lock
 
 Resolved an EPERM installation error by
-stopping remaining Node.js processes
-before reinstalling dependencies.
+stopping Node.js processes before reinstalling.
 
 ### Shared State Ownership
 
-Moved display preferences from the
-DashboardPage into PreferencesProvider
-to establish a single source of truth.
+Moved display preferences into Context
+to avoid duplicate state across pages.
 
-### Dynamic Route Validation
+### API Response Validation
 
-Matched route identifiers against the
-demonstration dataset and handled
-missing records without crashing.
+Validated unknown JSON data before converting
+it into typed application records.
+
+### Request Race Conditions
+
+Used AbortController, Effect cleanup and
+request identity checks to protect against
+obsolete asynchronous results.
+
+### Empty API Responses
+
+Used Chrome Local Overrides to simulate
+an empty users array and verify zero counts.
+
+## Deployment Considerations
+
+BrowserRouter requires SPA fallback support
+from the production hosting server.
+
+Direct routes must work without previous
+client-side navigation.
 
 ## Planned Features
 
-- API integration
-- Loading, error and retry states
-- Searchable user data
-- Interactive dashboard charts
-- Orders pages
+- Dashboard charts
+- Orders and additional data screens
 - Automated behavioral tests
 - Next.js migration
 - Tailwind CSS
@@ -401,14 +475,16 @@ missing records without crashing.
 
 ## Current Limitations
 
-- Statistics and user accounts use demo data.
+- Dashboard statistics use demo data.
+- The user directory uses fictional API data.
+- Only up to 20 users are loaded at a time.
+- Filters operate on the loaded records.
+- API availability depends on DummyJSON.
 - User roles are not authorization permissions.
 - Watchlist statuses are user-managed labels.
 - Feedback submission is simulated.
-- Browser storage is local to each origin.
 - Authentication is not implemented.
 - Report export is not implemented.
-- Automated behavioral tests are upcoming.
 - Counter is a temporary learning exercise.
 
 ## Live Demo
@@ -417,8 +493,8 @@ Coming after production deployment.
 
 ## Screenshots and Demonstration
 
-Screenshots and a demonstration video
-will be added during development.
+Project screenshots and a demonstration
+video will be added during development.
 
 ## Developer
 
