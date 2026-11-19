@@ -5,13 +5,13 @@ Professional Business Analytics Dashboard
 
 ## Overview
 
-InsightBoard is a responsive business analytics
-dashboard built with React and TypeScript.
+InsightBoard is a responsive multi-page business
+analytics dashboard built with React and TypeScript.
 
-The project demonstrates reusable component
+The application demonstrates reusable component
 architecture, interactive data management,
 accessible forms, asynchronous operations,
-type safety and professional development practices.
+client-side routing and shared state management.
 
 ## Project Status
 
@@ -19,74 +19,84 @@ type safety and professional development practices.
 - Started: 19 November 2026
 - Development Roadmap: Day 24–40
 - Status: In Development
-- Current Milestone: Accessible Feedback System
+- Current Milestone: Multi-page Dashboard
 
 ## Current Features
 
 ### Dashboard
 
-- Responsive statistics cards
-- Business performance overview using demo data
-- Show and hide percentage changes
+- Responsive business statistics cards
+- Demonstration business performance data
 - Show and hide statistics
+- Show and hide percentage changes
 - Persistent display preferences
-- Reset preferences
+- Native project information modal
 
 ### Interactive Watchlist
 
-- Add, delete, pause and resume metrics
-- Search metrics
-- Filter by status
-- Alphabetical sorting
+- Add and delete metrics
+- Pause and resume metrics
+- Search, filter and sort records
 - Automatically calculated summary counts
 - Empty-state handling
 - Duplicate and empty name validation
 - Persistent browser storage
-- Reset watchlist
+- Reset Watchlist
 
 ### Feedback and Support
 
 - Controlled multi-field feedback form
-- Name, email, category and message fields
-- Type-safe form state
-- Required-field validation
-- Email format validation
-- Name and message length validation
-- Whitespace handling
-- Live character counter
-- Field-specific validation errors
-- Automatic focus on the first invalid field
-- Accessible labels and error associations
+- TypeScript validation utilities
+- Required-field and length validation
+- Basic email format validation
+- Accessible labels and field errors
+- Automatic invalid-field focus
 - Reusable FormField component
-- Asynchronous submission simulation
+- Live character counter
 - Idle, pending, success and failure states
+- Simulated asynchronous submission
 - Duplicate submission prevention
-- Retry support
-- Input preservation after failed submissions
-- Automatic form reset after success
-- Responsive desktop and mobile layouts
+- Input preservation after failure
+- Automatic reset after success
+
+### User Directory
+
+- Five fictional demonstration users
+- Responsive user cards
+- Active and inactive user summaries
+- Dynamic user details pages
+- Account role and status labels
+- Missing-user handling
+
+### Navigation and Settings
+
+- React Router client-side navigation
+- Shared application layout
+- Active navigation styles
+- Dynamic route parameters
+- Unknown-route handling
+- Shared Preferences Context
+- Persistent dashboard settings
+- Reset preferences to defaults
 
 ### User Experience
 
-- Native project information modal
-- Escape key dialog support
-- Keyboard-accessible forms
 - Responsive CSS Grid and Flexbox layouts
-- Visible keyboard focus indicators
+- Keyboard-accessible controls
+- Visible focus indicators
+- Escape key modal support
 - Custom application branding
 
 ### Learning Exercise
 
-- Interactive React counter
-- Increment, decrement and reset operations
-- Negative value prevention
-
-The counter is a temporary learning exercise.
+The dashboard includes a temporary Counter
+component for demonstrating React state.
 
 ## Technology Stack
 
 - React
 - TypeScript
+- React Router
 - Vite
 - CSS
 - Oxlint
@@ -96,8 +106,25 @@ The counter is a temporary learning exercise.
 - React Developer Tools
 - Browser localStorage
 
-See [versions.md](./versions.md) for exact
+See [versions.md](./versions.md) for
 technology versions.
+
+## Application Routes
+
+| Route | Description |
+| --- | --- |
+| / | Dashboard overview |
+| /users | User directory |
+| /users/:id | Individual user details |
+| /settings | Shared display preferences |
+| * | Page not found |
+
+The details page retrieves a record using
+the route parameter rather than depending
+on previous navigation history.
+
+Invalid user identifiers display a
+dedicated User Not Found message.
 
 ## Project Structure
 
@@ -110,6 +137,8 @@ technology versions.
     │   │   ├── Header.tsx
     │   │   ├── Layout.tsx
     │   │   ├── StatCard.tsx
+    │   │   ├── Navigation.tsx
+    │   │   ├── Navigation.css
     │   │   ├── Counter.tsx
     │   │   ├── Watchlist.tsx
     │   │   ├── ProjectInfoDialog.tsx
@@ -117,13 +146,25 @@ technology versions.
     │   │   ├── FeedbackForm.tsx
     │   │   ├── FeedbackForm.css
     │   │   └── FormField.tsx
+    │   ├── context/
+    │   │   ├── preferencesContext.ts
+    │   │   └── PreferencesProvider.tsx
+    │   ├── pages/
+    │   │   ├── DashboardPage.tsx
+    │   │   ├── UsersPage.tsx
+    │   │   ├── UserDetailsPage.tsx
+    │   │   ├── UsersPage.css
+    │   │   ├── SettingsPage.tsx
+    │   │   └── SettingsPage.css
     │   ├── data/
-    │   │   └── dashboardStats.ts
+    │   │   ├── dashboardStats.ts
+    │   │   └── users.ts
     │   ├── services/
     │   │   └── feedbackService.ts
     │   ├── types/
     │   │   ├── dashboard.ts
-    │   │   └── feedback.ts
+    │   │   ├── feedback.ts
+    │   │   └── user.ts
     │   ├── utils/
     │   │   └── validateFeedback.ts
     │   ├── App.tsx
@@ -137,58 +178,82 @@ technology versions.
 
 ## Application Architecture
 
-- App: Dashboard preferences and modal state
-- Layout: Shared application structure
-- Header: Application identity
-- Card: Reusable content container
-- StatCard: Dashboard statistics
-- Button: Typed reusable button
-- Counter: Primitive state practice
-- Watchlist: Interactive metric management
-- ProjectInfoDialog: Native modal synchronization
-- FeedbackForm: Form state and submission lifecycle
-- FormField: Reusable field presentation
-- validateFeedback: Independent validation logic
-- feedbackService: Simulated asynchronous service
+    App
+      └── PreferencesProvider
+          └── BrowserRouter
+              └── DashboardLayout
+                  ├── Header
+                  ├── Navigation
+                  ├── Outlet
+                  │   ├── DashboardPage
+                  │   ├── UsersPage
+                  │   ├── UserDetailsPage
+                  │   ├── SettingsPage
+                  │   └── Not Found
+                  └── Footer
+
+Shared navigation and layout remain mounted
+while the matched child route changes.
 
 ## State Management
 
-React useState manages primitive, object
-and array state.
+### Local State
 
-State updates are immutable.
+Feature-specific state remains local to the
+relevant component.
 
-Search results, sorted records, validation
-errors and summary counts are derived during
-rendering instead of being duplicated in state.
+Examples include Counter, Watchlist, feedback
+form values and modal visibility.
 
-React Effects synchronize external browser
-systems, including localStorage, native
-dialog behavior and input focus.
+Object and array state updates are immutable.
 
-## Feedback Submission Flow
+### Shared Context
 
-    User Input
-        |
-        v
-    Controlled Form State
-        |
-        v
-    Validation Function
-        |
-        +-- Invalid --> Field Errors and Focus
-        |
-        v
-    Pending Submission
-        |
-        v
-    Simulated Async Service
-        |
-        +-- Success --> Clear Form
-        |
-        +-- Failure --> Preserve Form and Retry
+PreferencesProvider owns dashboard display
+preferences and their update functions.
 
-The service simulates a 1.5-second delay.
+DashboardPage and SettingsPage consume
+the same values through usePreferences.
+
+Context avoids duplicated preference state
+and unnecessary prop drilling.
+
+### External State Libraries
+
+Redux Toolkit and Zustand may be useful
+for more complex shared-state requirements.
+
+They are not currently necessary for this
+application's limited shared preferences.
+
+### Derived Data
+
+Filtered records, sorted records, summary
+counts and validation errors are derived
+from existing state.
+
+Unnecessary synchronization Effects
+are avoided.
+
+## Browser Storage
+
+Dashboard preferences and Watchlist
+records are persisted using localStorage.
+
+Saved data is validated before use.
+Invalid data falls back to defaults.
+
+Preferences remain compatible with
+previous development milestones.
+
+Feedback information is not persisted.
+Unsaved local form state may reset when
+navigating away from the dashboard.
+
+## Feedback Submission
+
+The asynchronous feedback service
+simulates a 1.5-second network delay.
 
 Use fictional test data only.
 
@@ -197,29 +262,14 @@ Use fictional test data only.
 
 No feedback is transmitted, stored or emailed.
 
-## Browser Storage
-
-Dashboard preferences and Watchlist records
-are synchronized with localStorage.
-
-Saved records are validated before use.
-
-The application handles missing data,
-invalid JSON, incorrect property types,
-duplicate identifiers and storage failures.
-
-Invalid stored data falls back to defaults.
-
-Feedback information is not persisted.
-
 ## Getting Started
 
-### Requirements
+### Development Environment
 
 - Node.js 24.19.0
 - npm 11.17.0
 
-### Install Dependencies
+### Installation
 
     npm ci
 
@@ -244,13 +294,23 @@ Open the URL displayed in the terminal.
 Windows PowerShell users may use npm.cmd
 instead of npm when required.
 
+## Deployment Considerations
+
+BrowserRouter requires the production host
+to support SPA fallback to index.html.
+
+Direct URLs and page refreshes must work
+without previous client-side navigation.
+
+Live deployment is planned for a later
+development milestone.
+
 ## Development Milestones
 
 ### Day 24 — React Foundation
 
-- Reusable components
-- TypeScript props and interfaces
-- Component composition
+- Typed reusable components
+- Props and component composition
 - Responsive dashboard layout
 
 ### Day 25 — Interactive Dashboard
@@ -258,32 +318,39 @@ instead of npm when required.
 - React state and typed events
 - Immutable state updates
 - Persistent preferences and Watchlist
-- Search, sorting and filtering
+- Search, filtering and sorting
 - React DevTools and Profiler
 
 ### Day 26 — Accessible Forms
 
-- Controlled multi-field forms
-- TypeScript validation utilities
-- Generic field update function
-- Field-specific accessible errors
-- Reusable form-field component
-- Automatic invalid-field focus
+- Multi-field controlled forms
+- Independent validation utilities
+- Accessible error handling
 - Asynchronous submission states
 - Duplicate submission protection
-- Responsive form styling
+
+### Day 27 — Routing and Context
+
+- React Router integration
+- Shared navigation and layout
+- User directory and dynamic routes
+- Missing-record and unknown-route handling
+- Shared preferences provider
+- Functional settings page
+- Local and shared state boundaries
 
 ## Quality Assurance
 
 - Clean dependency installation
-- Oxlint code quality checks
+- Oxlint checks
 - TypeScript compilation
 - Vite production builds
 - Manual functional testing
 - Validation boundary testing
-- Keyboard navigation testing
+- Keyboard accessibility testing
 - Responsive layout testing
-- Submission success and failure testing
+- Direct-route and refresh testing
+- Shared-state synchronization testing
 
 ## Technical Challenges
 
@@ -292,38 +359,41 @@ instead of npm when required.
 Moved the current-year calculation outside
 the Layout component to resolve a lint warning.
 
-### Corrupted Browser Data
+### Invalid Browser Data
 
-Implemented validation and fallback defaults
-to recover from invalid localStorage data.
-
-### Derived Data
-
-Calculated filtered records, summary counts
-and form errors from existing state to avoid
-unnecessary synchronization Effects.
+Implemented saved-data validation and
+fallback defaults for localStorage recovery.
 
 ### Duplicate Submissions
 
-Combined submission state and an immediate
-ref-based lock to prevent overlapping
-asynchronous operations.
+Combined pending state with a ref-based
+lock to prevent overlapping operations.
 
 ### Windows Dependency File Lock
 
-A running Node.js process prevented npm ci
-from replacing a native dependency file.
+Resolved an EPERM installation error by
+stopping remaining Node.js processes
+before reinstalling dependencies.
 
-Stopping the remaining Node.js process
-resolved the EPERM installation error.
+### Shared State Ownership
+
+Moved display preferences from the
+DashboardPage into PreferencesProvider
+to establish a single source of truth.
+
+### Dynamic Route Validation
+
+Matched route identifiers against the
+demonstration dataset and handled
+missing records without crashing.
 
 ## Planned Features
 
-- Routing and detail pages
-- Dashboard charts
-- Users and orders pages
 - API integration
-- Loading and error states
+- Loading, error and retry states
+- Searchable user data
+- Interactive dashboard charts
+- Orders pages
 - Automated behavioral tests
 - Next.js migration
 - Tailwind CSS
@@ -331,15 +401,15 @@ resolved the EPERM installation error.
 
 ## Current Limitations
 
-- Dashboard statistics use demonstration data.
+- Statistics and user accounts use demo data.
+- User roles are not authorization permissions.
 - Watchlist statuses are user-managed labels.
-- Preferences and Watchlist records are local.
 - Feedback submission is simulated.
-- Real backend validation is not implemented.
-- Report export is not implemented.
+- Browser storage is local to each origin.
 - Authentication is not implemented.
+- Report export is not implemented.
 - Automated behavioral tests are upcoming.
-- The counter is a temporary learning feature.
+- Counter is a temporary learning exercise.
 
 ## Live Demo
 
@@ -347,7 +417,7 @@ Coming after production deployment.
 
 ## Screenshots and Demonstration
 
-Project screenshots and a demonstration video
+Screenshots and a demonstration video
 will be added during development.
 
 ## Developer
