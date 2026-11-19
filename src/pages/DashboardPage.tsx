@@ -1,10 +1,10 @@
 
 import StatCard from "../components/StatCard";
 import Button from "../components/Button";
-import Counter from "../components/Counter";
 import Watchlist from "../components/Watchlist";
 import FeedbackForm from "../components/FeedbackForm";
 import DashboardActions from "../components/DashboardActions";
+import RevenueChart from "../components/RevenueChart";
 
 import { dashboardStats } from "../data/dashboardStats";
 import { usePreferences } from "../context/preferencesContext";
@@ -74,6 +74,13 @@ function DashboardPage() {
                 <DashboardActions />
             </section>
 
+            {preferences.showStats && (
+                <section>
+                    <h2>Revenue Trend</h2>
+                    <RevenueChart />
+                </section>
+            )}
+
             <section>
                 <h2>Watchlist</h2>
                 <Watchlist />
@@ -82,11 +89,6 @@ function DashboardPage() {
             <section>
                 <h2>Feedback and Support</h2>
                 <FeedbackForm />
-            </section>
-
-            <section>
-                <h2>React State Practice</h2>
-                <Counter />
             </section>
         </>
     );

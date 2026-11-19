@@ -1,0 +1,143 @@
+
+.revenue-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.revenue-chart-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card .revenue-chart-header h3 {
+    margin: 0 0 8px;
+    color: #f8fafc;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.card .revenue-chart-description,
+.card .revenue-chart-count {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.revenue-period {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.revenue-period label {
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.revenue-chart .revenue-period select {
+    min-height: 42px;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    background-color: #111827;
+    color: #f8fafc;
+    color-scheme: dark;
+    font: inherit;
+    font-size: 14px;
+}
+
+.revenue-period select:focus-visible {
+    outline: 2px solid #60a5fa;
+    outline-offset: 3px;
+}
+
+.revenue-chart-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.revenue-chart-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.revenue-chart-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.revenue-chart-label strong {
+    color: #f8fafc;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.revenue-chart-track {
+    height: 22px;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #334155;
+}
+
+.revenue-chart-bar {
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #60a5fa
+    );
+    transition: width 0.3s ease;
+}
+
+.card .revenue-chart-note {
+    margin: 0;
+    padding-top: 16px;
+    border-top: 1px solid #334155;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .revenue-chart-bar {
+        transition: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .revenue-chart-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .revenue-period select {
+        width: 100%;
+    }
+
+    .revenue-chart-label {
+        font-size: 13px;
+    }
+
+    .revenue-chart-track {
+        height: 18px;
+    }
+}
