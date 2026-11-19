@@ -6,6 +6,7 @@ import Button from "./components/Button";
 import Counter from "./components/Counter";
 import Watchlist from "./components/Watchlist";
 import ProjectInfoDialog from "./components/ProjectInfoDialog";
+import FeedbackForm from "./components/FeedbackForm";
 import { dashboardStats } from "./data/dashboardStats";
 import "./App.css";
 
@@ -78,14 +79,14 @@ function App() {
     }, [preferences]);
 
     function toggleChanges() {
-        setPreferences((previousPreferences) => ({
+        setPreferences(previousPreferences => ({
             ...previousPreferences,
             showChanges: !previousPreferences.showChanges,
         }));
     }
 
     function toggleStatistics() {
-        setPreferences((previousPreferences) => ({
+        setPreferences(previousPreferences => ({
             ...previousPreferences,
             showStats: !previousPreferences.showStats,
         }));
@@ -118,7 +119,8 @@ function App() {
 
                 {!preferences.showStats && (
                     <p className="empty-state">
-                        Statistics hidden by your display preferences.
+                        Statistics hidden by your display
+                        preferences.
                     </p>
                 )}
 
@@ -126,11 +128,12 @@ function App() {
                     <>
                         {dashboardStats.length === 0 ? (
                             <p className="empty-state">
-                                No dashboard statistics available.
+                                No dashboard statistics
+                                available.
                             </p>
                         ) : (
                             <div className="stats-grid">
-                                {dashboardStats.map((stat) => (
+                                {dashboardStats.map(stat => (
                                     <StatCard
                                         key={stat.id}
                                         title={stat.title}
@@ -161,6 +164,11 @@ function App() {
             <section>
                 <h2>Watchlist</h2>
                 <Watchlist />
+            </section>
+
+            <section>
+                <h2>Feedback and Support</h2>
+                <FeedbackForm />
             </section>
 
             <section>

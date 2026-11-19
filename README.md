@@ -10,8 +10,8 @@ dashboard built with React and TypeScript.
 
 The project demonstrates reusable component
 architecture, interactive data management,
-type safety, responsive design and
-professional software development practices.
+accessible forms, asynchronous operations,
+type safety and professional development practices.
 
 ## Project Status
 
@@ -19,7 +19,7 @@ professional software development practices.
 - Started: 19 November 2026
 - Development Roadmap: Day 24–40
 - Status: In Development
-- Current Milestone: Interactive React Dashboard
+- Current Milestone: Accessible Feedback System
 
 ## Current Features
 
@@ -34,31 +34,50 @@ professional software development practices.
 
 ### Interactive Watchlist
 
-- Add custom metric names
-- Pause and resume metrics
-- Delete metrics
+- Add, delete, pause and resume metrics
 - Search metrics
-- Filter by monitoring status
-- Sort alphabetically
+- Filter by status
+- Alphabetical sorting
 - Automatically calculated summary counts
 - Empty-state handling
 - Duplicate and empty name validation
 - Persistent browser storage
 - Reset watchlist
 
+### Feedback and Support
+
+- Controlled multi-field feedback form
+- Name, email, category and message fields
+- Type-safe form state
+- Required-field validation
+- Email format validation
+- Name and message length validation
+- Whitespace handling
+- Live character counter
+- Field-specific validation errors
+- Automatic focus on the first invalid field
+- Accessible labels and error associations
+- Reusable FormField component
+- Asynchronous submission simulation
+- Idle, pending, success and failure states
+- Duplicate submission prevention
+- Retry support
+- Input preservation after failed submissions
+- Automatic form reset after success
+- Responsive desktop and mobile layouts
+
 ### User Experience
 
 - Native project information modal
-- Keyboard-accessible form submission
 - Escape key dialog support
-- Responsive desktop, tablet and mobile CSS
-- Validation feedback
+- Keyboard-accessible forms
+- Responsive CSS Grid and Flexbox layouts
+- Visible keyboard focus indicators
 - Custom application branding
-- Keyboard focus indicators
 
 ### Learning Exercise
 
-- Interactive counter demonstrating React state
+- Interactive React counter
 - Increment, decrement and reset operations
 - Negative value prevention
 
@@ -84,7 +103,6 @@ technology versions.
 
     insightboard/
     ├── public/
-    │   └── favicon.svg
     ├── src/
     │   ├── components/
     │   │   ├── Button.tsx
@@ -95,16 +113,23 @@ technology versions.
     │   │   ├── Counter.tsx
     │   │   ├── Watchlist.tsx
     │   │   ├── ProjectInfoDialog.tsx
-    │   │   └── ProjectInfoDialog.css
+    │   │   ├── ProjectInfoDialog.css
+    │   │   ├── FeedbackForm.tsx
+    │   │   ├── FeedbackForm.css
+    │   │   └── FormField.tsx
     │   ├── data/
     │   │   └── dashboardStats.ts
+    │   ├── services/
+    │   │   └── feedbackService.ts
     │   ├── types/
-    │   │   └── dashboard.ts
+    │   │   ├── dashboard.ts
+    │   │   └── feedback.ts
+    │   ├── utils/
+    │   │   └── validateFeedback.ts
     │   ├── App.tsx
     │   ├── App.css
     │   ├── index.css
     │   └── main.tsx
-    ├── index.html
     ├── package.json
     ├── package-lock.json
     ├── versions.md
@@ -112,66 +137,80 @@ technology versions.
 
 ## Application Architecture
 
-InsightBoard uses component-based architecture
-with local state ownership and reusable UI
-components.
-
 - App: Dashboard preferences and modal state
 - Layout: Shared application structure
 - Header: Application identity
 - Card: Reusable content container
 - StatCard: Dashboard statistics
-- Button: Reusable typed button
+- Button: Typed reusable button
 - Counter: Primitive state practice
 - Watchlist: Interactive metric management
 - ProjectInfoDialog: Native modal synchronization
+- FeedbackForm: Form state and submission lifecycle
+- FormField: Reusable field presentation
+- validateFeedback: Independent validation logic
+- feedbackService: Simulated asynchronous service
 
 ## State Management
 
 React useState manages primitive, object
 and array state.
 
-Objects and arrays are updated immutably
-using the spread operator, map and filter.
+State updates are immutable.
 
-Search results, sorted records and summary
-counts are derived during rendering instead
-of being stored in redundant state.
+Search results, sorted records, validation
+errors and summary counts are derived during
+rendering instead of being duplicated in state.
 
-## Data Flow
+React Effects synchronize external browser
+systems, including localStorage, native
+dialog behavior and input focus.
 
-    User Interaction
-          |
-          v
-    Typed Event Handler
-          |
-          v
-    State Update
-          |
-          v
-    React Re-render
-          |
-          v
-    Updated User Interface
+## Feedback Submission Flow
+
+    User Input
+        |
+        v
+    Controlled Form State
+        |
+        v
+    Validation Function
+        |
+        +-- Invalid --> Field Errors and Focus
+        |
+        v
+    Pending Submission
+        |
+        v
+    Simulated Async Service
+        |
+        +-- Success --> Clear Form
+        |
+        +-- Failure --> Preserve Form and Retry
+
+The service simulates a 1.5-second delay.
+
+Use fictional test data only.
+
+- test@example.com: Simulated success
+- fail@example.com: Simulated failure
+
+No feedback is transmitted, stored or emailed.
 
 ## Browser Storage
 
 Dashboard preferences and Watchlist records
-are synchronized with localStorage using
-React Effects.
+are synchronized with localStorage.
 
 Saved records are validated before use.
 
-The application handles:
+The application handles missing data,
+invalid JSON, incorrect property types,
+duplicate identifiers and storage failures.
 
-- Missing saved data
-- Invalid JSON
-- Incorrect property types
-- Invalid Watchlist records
-- Duplicate identifiers
-- Storage access failures
+Invalid stored data falls back to defaults.
 
-Invalid saved data falls back to defaults.
+Feedback information is not persisted.
 
 ## Getting Started
 
@@ -180,7 +219,7 @@ Invalid saved data falls back to defaults.
 - Node.js 24.19.0
 - npm 11.17.0
 
-### Installation
+### Install Dependencies
 
     npm ci
 
@@ -205,66 +244,84 @@ Open the URL displayed in the terminal.
 Windows PowerShell users may use npm.cmd
 instead of npm when required.
 
-## Quality Checks
+## Development Milestones
 
-### Day 24
+### Day 24 — React Foundation
 
-- TypeScript compilation: Passed
-- Production build: Passed
-- Lint warnings: 0
-- Lint errors: 0
+- Reusable components
+- TypeScript props and interfaces
+- Component composition
+- Responsive dashboard layout
 
-### Day 25
+### Day 25 — Interactive Dashboard
 
-- TypeScript compilation: Passed
-- Production build: Passed
-- Lint warnings: 0
-- Lint errors: 0
-- Functional testing: Manually tested
-- Corrupted preferences recovery: Tested
-- React DevTools profiling: Completed
+- React state and typed events
+- Immutable state updates
+- Persistent preferences and Watchlist
+- Search, sorting and filtering
+- React DevTools and Profiler
 
-## Debugging and Challenges
+### Day 26 — Accessible Forms
+
+- Controlled multi-field forms
+- TypeScript validation utilities
+- Generic field update function
+- Field-specific accessible errors
+- Reusable form-field component
+- Automatic invalid-field focus
+- Asynchronous submission states
+- Duplicate submission protection
+- Responsive form styling
+
+## Quality Assurance
+
+- Clean dependency installation
+- Oxlint code quality checks
+- TypeScript compilation
+- Vite production builds
+- Manual functional testing
+- Validation boundary testing
+- Keyboard navigation testing
+- Responsive layout testing
+- Submission success and failure testing
+
+## Technical Challenges
 
 ### React Render Purity
 
-The Layout component originally calculated
-the current year during rendering.
-
-Moving the calculation outside the component
-resolved the lint warning.
+Moved the current-year calculation outside
+the Layout component to resolve a lint warning.
 
 ### Corrupted Browser Data
 
-Invalid JSON was deliberately stored in
-localStorage to test application recovery.
-
-The application caught the parsing error,
-restored default preferences and continued
-working without crashing.
+Implemented validation and fallback defaults
+to recover from invalid localStorage data.
 
 ### Derived Data
 
-Search results, sorting and summary counts
-are calculated from existing state.
-
-This reduces state duplication and avoids
+Calculated filtered records, summary counts
+and form errors from existing state to avoid
 unnecessary synchronization Effects.
 
-### React Rendering
+### Duplicate Submissions
 
-React DevTools Profiler was used to inspect
-Counter state updates.
+Combined submission state and an immediate
+ref-based lock to prevent overlapping
+asynchronous operations.
 
-The selected development recording showed
-that Counter caused the update without
-re-rendering the Watchlist.
+### Windows Dependency File Lock
+
+A running Node.js process prevented npm ci
+from replacing a native dependency file.
+
+Stopping the remaining Node.js process
+resolved the EPERM installation error.
 
 ## Planned Features
 
-- Interactive dashboard charts
-- Users and orders pages
 - Routing and detail pages
+- Dashboard charts
+- Users and orders pages
 - API integration
 - Loading and error states
 - Automated behavioral tests
@@ -274,10 +331,11 @@ re-rendering the Watchlist.
 
 ## Current Limitations
 
-- Business statistics use demonstration data.
-- Watchlist statuses are user-managed labels,
-  not real-time monitoring of business metrics.
-- Data is stored locally in the browser.
+- Dashboard statistics use demonstration data.
+- Watchlist statuses are user-managed labels.
+- Preferences and Watchlist records are local.
+- Feedback submission is simulated.
+- Real backend validation is not implemented.
 - Report export is not implemented.
 - Authentication is not implemented.
 - Automated behavioral tests are upcoming.
