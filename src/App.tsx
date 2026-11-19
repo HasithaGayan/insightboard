@@ -3,13 +3,13 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Outlet,
     Link,
 } from "react-router";
 
 import Layout from "./components/Layout";
 import Navigation from "./components/Navigation";
 import Card from "./components/Card";
+import RouteContent from "./components/RouteContent";
 
 import DashboardPage from "./pages/DashboardPage";
 import UsersPage from "./pages/UsersPage";
@@ -24,7 +24,7 @@ function DashboardLayout() {
     return (
         <Layout>
             <Navigation />
-            <Outlet />
+            <RouteContent />
         </Layout>
     );
 }

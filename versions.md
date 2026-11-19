@@ -71,3 +71,16 @@ and zero errors.
 - Document future technology migrations.
 
 - React Router: 7.18.6
+
+
+
+## Testing Tools - Day 29
+
+- Vitest: 5.1.1
+- React Testing Library
+- Testing Library DOM
+- Testing Library User Event
+- Jest DOM
+- jsdom
+
+Exact dependency versions are recorded in package-lock.json.

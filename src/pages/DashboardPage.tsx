@@ -1,12 +1,10 @@
 
-import { useState } from "react";
-
 import StatCard from "../components/StatCard";
 import Button from "../components/Button";
 import Counter from "../components/Counter";
 import Watchlist from "../components/Watchlist";
-import ProjectInfoDialog from "../components/ProjectInfoDialog";
 import FeedbackForm from "../components/FeedbackForm";
+import DashboardActions from "../components/DashboardActions";
 
 import { dashboardStats } from "../data/dashboardStats";
 import { usePreferences } from "../context/preferencesContext";
@@ -18,9 +16,6 @@ function DashboardPage() {
         toggleStatistics,
         resetPreferences,
     } = usePreferences();
-
-    const [isInfoOpen, setIsInfoOpen] =
-        useState<boolean>(false);
 
     return (
         <>
@@ -76,15 +71,7 @@ function DashboardPage() {
                     </>
                 )}
 
-                <Button
-                    onClick={() => setIsInfoOpen(true)}
-                >
-                    View Project Info
-                </Button>
-
-                <Button disabled>
-                    Export Report
-                </Button>
+                <DashboardActions />
             </section>
 
             <section>
@@ -101,11 +88,6 @@ function DashboardPage() {
                 <h2>React State Practice</h2>
                 <Counter />
             </section>
-
-            <ProjectInfoDialog
-                isOpen={isInfoOpen}
-                onClose={() => setIsInfoOpen(false)}
-            />
         </>
     );
 }

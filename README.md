@@ -5,13 +5,15 @@ Professional Business Analytics Dashboard
 
 ## Overview
 
-InsightBoard is a responsive, data-driven business
-analytics dashboard built with React and TypeScript.
+InsightBoard is a responsive, data-driven
+business analytics dashboard built with
+React and TypeScript.
 
-The project demonstrates component architecture,
-accessible forms, asynchronous programming,
-client-side routing, shared state management
-and external API integration.
+The application demonstrates reusable
+component architecture, accessible forms,
+client-side routing, shared state,
+external API integration, automated testing
+and measured performance optimization.
 
 ## Project Status
 
@@ -19,7 +21,7 @@ and external API integration.
 - Started: 19 November 2026
 - Development Roadmap: Day 24-40
 - Status: In Development
-- Current Milestone: API-Powered Dashboard
+- Current Milestone: Testing and Quality Assurance
 
 ## Current Features
 
@@ -27,81 +29,92 @@ and external API integration.
 
 - Responsive business statistics cards
 - Demonstration business performance metrics
-- Show and hide statistics
-- Show and hide percentage changes
+- Configurable statistics and percentage changes
 - Persistent display preferences
 - Project information modal
+- Isolated modal state
 
 ### Interactive Watchlist
 
-- Add, delete, pause and resume metrics
+- Add, remove, pause and resume metrics
 - Search, filter and sort records
 - Derived summary counts
-- Empty-state handling
 - Duplicate and empty name validation
+- Empty-state handling
 - Persistent browser storage
 - Reset Watchlist
 
 ### Feedback and Support
 
-- Controlled multi-field form
-- Type-safe validation utilities
+- Controlled multi-field feedback form
+- Independent TypeScript validation utilities
 - Required-field and length validation
-- Basic email format validation
-- Accessible labels and field errors
+- Email format validation
+- Accessible labels and error associations
 - Automatic invalid-field focus
 - Reusable FormField component
 - Live character counter
 - Simulated asynchronous submission
-- Idle, pending, success and failure states
+- Pending, success and failure states
 - Duplicate submission protection
 - Input preservation on failure
 - Automatic reset on success
 
 ### API-Powered User Directory
 
-- External DummyJSON API integration
+- DummyJSON REST API integration
 - Up to 20 fetched user records
-- Runtime API response validation
-- Normalized user records
+- Runtime response validation
+- Normalized user data
 - Dynamic user details pages
 - Account role summary cards
 - Case-insensitive name and email search
-- Account role filtering
+- Role filtering
 - Alphabetical and numerical sorting
-- Derived result counts
-- Clear filters and refresh controls
-- Loading skeleton/message behavior
-- Empty API and empty search states
-- Error handling and retry functionality
+- Derived results and summary counts
+- Clear filters and refresh functionality
+- Loading, success, empty and error states
+- Retry functionality
 - Missing-user handling
 - Obsolete request cancellation
 
 ### Routing and Settings
 
 - React Router client-side navigation
-- Shared navigation and layout
-- Active navigation styles
+- Shared layout and navigation
+- Active navigation indicators
 - Dynamic route parameters
 - Unknown-route handling
 - Shared Preferences Context
 - Persistent dashboard settings
 - Reset preferences to defaults
 
-### User Experience
+### Accessibility
 
-- Responsive CSS Grid and Flexbox
-- Keyboard-accessible controls
-- Visible focus indicators
-- Reduced-motion-aware loading spinner
+- Semantic navigation and form controls
+- Accessible labels
+- Field-specific validation errors
+- Visible keyboard focus indicators
+- Native dialog keyboard behavior
 - Escape key modal support
+- Reduced-motion-aware loading animation
+- Programmatic focus after route changes
+- Responsive desktop and mobile layouts
 
-### Learning Exercise
+### Automated Testing
 
-A temporary Counter component demonstrates
-fundamental React state management.
+- Component rendering tests
+- Form interaction tests
+- Accessibility behavior tests
+- API loading and error tests
+- Search and filtering tests
+- Runtime API validation tests
+- Request cancellation tests
+- Deterministic race-condition tests
 
 ## Technology Stack
+
+### Application
 
 - React
 - TypeScript
@@ -111,15 +124,24 @@ fundamental React state management.
 - Fetch API
 - AbortController
 - DummyJSON REST API
-- Oxlint
-- Node.js
-- npm
-- Git and GitHub
-- React Developer Tools
 - Browser localStorage
 
-See [versions.md](./versions.md) for exact
-technology versions.
+### Development and Testing
+
+- Node.js
+- npm
+- Oxlint
+- Vitest 5.1.1
+- React Testing Library
+- Testing Library DOM
+- Testing Library User Event
+- Jest DOM
+- jsdom
+- React Developer Tools
+- Git and GitHub
+
+See [versions.md](./versions.md) and
+package-lock.json for dependency versions.
 
 ## Application Routes
 
@@ -131,48 +153,49 @@ technology versions.
 | /settings | Shared display preferences |
 | * | Page not found |
 
-User details are independently fetched using
-the route identifier.
-
 ## Project Structure
 
     insightboard/
     ├── public/
     ├── src/
     │   ├── components/
+    │   │   ├── DashboardActions.tsx
+    │   │   ├── FeedbackForm.tsx
+    │   │   ├── FeedbackForm.test.tsx
+    │   │   ├── RouteContent.tsx
+    │   │   ├── RouteContent.test.tsx
+    │   │   ├── StatCard.tsx
+    │   │   ├── StatCard.test.tsx
+    │   │   └── Other reusable components
     │   ├── context/
     │   │   ├── PreferencesProvider.tsx
     │   │   └── preferencesContext.ts
     │   ├── data/
-    │   │   ├── dashboardStats.ts
-    │   │   └── users.ts
     │   ├── hooks/
-    │   │   └── useAsyncData.ts
+    │   │   ├── useAsyncData.ts
+    │   │   └── useAsyncData.test.tsx
     │   ├── pages/
     │   │   ├── DashboardPage.tsx
     │   │   ├── UsersPage.tsx
+    │   │   ├── UsersPage.test.tsx
     │   │   ├── UserDetailsPage.tsx
-    │   │   ├── UsersPage.css
-    │   │   ├── UsersFilters.css
-    │   │   ├── SettingsPage.tsx
-    │   │   └── SettingsPage.css
+    │   │   └── SettingsPage.tsx
     │   ├── services/
     │   │   ├── feedbackService.ts
-    │   │   └── userService.ts
+    │   │   ├── userService.ts
+    │   │   └── userService.test.ts
+    │   ├── test/
+    │   │   └── setup.ts
     │   ├── types/
-    │   │   ├── dashboard.ts
-    │   │   ├── feedback.ts
-    │   │   ├── user.ts
-    │   │   └── apiUser.ts
     │   ├── utils/
-    │   │   ├── validateFeedback.ts
-    │   │   └── filterUsers.ts
     │   ├── App.tsx
     │   ├── App.css
     │   ├── index.css
     │   └── main.tsx
     ├── package.json
     ├── package-lock.json
+    ├── vite.config.ts
+    ├── vitest.config.ts
     ├── versions.md
     └── README.md
 
@@ -181,38 +204,19 @@ the route identifier.
     App
       └── PreferencesProvider
           └── BrowserRouter
-              └── Shared DashboardLayout
+              └── DashboardLayout
                   ├── Header
                   ├── Navigation
-                  ├── Outlet
-                  │   ├── DashboardPage
-                  │   ├── UsersPage
-                  │   ├── UserDetailsPage
-                  │   └── SettingsPage
+                  ├── RouteContent
+                  │   └── Outlet
+                  │       ├── DashboardPage
+                  │       ├── UsersPage
+                  │       ├── UserDetailsPage
+                  │       └── SettingsPage
                   └── Footer
 
-## API Integration
-
-Data source:
-
-https://dummyjson.com/docs/users
-
-Endpoints:
-
-- GET /users?limit=20
-- GET /users/:id
-
-The API provides fictional demonstration users.
-
-The service selects and validates the required
-user fields before passing normalized data
-to React components.
-
-HTTP errors and malformed data are handled
-explicitly.
-
-A missing user returns a dedicated
-User Not Found state.
+RouteContent manages keyboard focus when
+the application pathname changes.
 
 ## API Data Flow
 
@@ -242,61 +246,113 @@ User Not Found state.
                 v
          Render Components
 
-The reusable asynchronous Hook manages
-loading, success and error states.
+API documentation:
 
-AbortController cancels obsolete requests
-during Effect cleanup.
+https://dummyjson.com/docs/users
 
-Aborted requests are prevented from updating
-the current UI.
+The API provides fictional demonstration
+user records.
 
-Retry attempts and loader identities are
-checked before displaying stored results.
+AbortController and Effect cleanup prevent
+obsolete requests from updating the current
+application state.
 
 ## State Management
 
-### Local State
+Feature-specific state remains local to
+the component that needs it.
 
-Feature-specific state remains inside
-its corresponding component.
+PreferencesProvider owns display preferences
+shared between Dashboard and Settings.
 
-Examples include feedback inputs, Watchlist,
-search filters, modal visibility and Counter.
+Search results, validation errors and summary
+counts are derived rather than duplicated.
 
-### Shared Context
+Redux and Zustand are not currently required.
 
-PreferencesProvider owns display preferences.
+## Performance Optimization
 
-DashboardPage and SettingsPage consume
-the same values through usePreferences.
+React DevTools Profiler identified an
+unnecessary rendering problem when opening
+the project information modal.
 
-### Derived Data
+Previously, DashboardPage owned modal state,
+causing unrelated dashboard components
+to participate in modal-related updates.
 
-Search results, role counts, sorted records
-and validation errors are derived from
-existing data instead of duplicated in state.
+The modal state was moved into DashboardActions
+using state colocation.
 
-The filterUsers utility does not mutate
-the original API array.
+This narrows the update boundary without
+introducing unnecessary memoization.
 
-### External State Libraries
+Baseline development Profiler measurement:
 
-Redux Toolkit and Zustand are possible future
-options for more complex shared state.
+- Render duration: 7.9 ms
+- Passive effects: 5.1 ms
+- Component causing update: DashboardPage
+- Watchlist participated in the render
 
-They are not currently required.
+The baseline is a single development
+measurement, not a production benchmark.
+
+The same interaction should be measured
+after refactoring to quantify the improvement.
+
+## Testing Strategy
+
+Tests focus on user-visible behavior
+and meaningful failure scenarios.
+
+External API dependencies are mocked to
+produce deterministic test results.
+
+Deferred Promises simulate competing
+asynchronous requests.
+
+### Test Suite Inventory
+
+| Suite | Tests |
+| --- | ---: |
+| StatCard | 3 |
+| FeedbackForm | 5 |
+| UsersPage | 8 |
+| userService | 10 |
+| useAsyncData | 3 |
+| RouteContent | 2 |
+| Total | 31 |
+
+### Testing Coverage
+
+- Component props and rendered output
+- Required-field validation
+- Invalid-field focus
+- Accessible error associations
+- Form reset behavior
+- API loading and successful responses
+- Empty API responses
+- API failures and retry
+- Search and role filtering
+- Invalid response structures
+- Duplicate user identifiers
+- HTTP errors
+- Missing user records
+- Obsolete asynchronous responses
+- Effect cleanup and cancellation
+- Route-change focus management
+
+Browser layout and keyboard behavior
+also require manual verification.
 
 ## Browser Storage
 
-Display preferences and Watchlist records
-are persisted through localStorage.
+Dashboard preferences and Watchlist
+records are persisted in localStorage.
 
-Stored data is validated before use.
-Invalid data falls back to defaults.
+Stored values are validated before use.
 
 Feedback and API user records are not
-persisted in browser storage by the app.
+persisted by the application.
 
 ## Feedback Submission
 
@@ -325,6 +381,14 @@ No feedback is transmitted, stored or emailed.
 
     npm run dev
 
+### Automated Tests
+
+    npm test
+
+### Test Watch Mode
+
+    npm run test:watch
+
 ### Code Quality
 
     npm run lint
@@ -346,22 +410,22 @@ instead of npm when required.
 
 ### Day 24 - React Foundation
 
-- Typed reusable components
-- Props and component composition
-- Responsive dashboard layout
+- TypeScript interfaces and typed props
+- Reusable components
+- Responsive dashboard
 
 ### Day 25 - Interactive Dashboard
 
 - React state and typed events
 - Immutable state updates
-- Persistent Watchlist and preferences
+- Persistent preferences and Watchlist
 - Search, filtering and sorting
 - React DevTools and Profiler
 
 ### Day 26 - Accessible Forms
 
-- Controlled multi-field forms
-- Independent validation utilities
+- Controlled forms
+- Runtime validation
 - Accessible error handling
 - Asynchronous submission states
 - Duplicate submission protection
@@ -369,123 +433,75 @@ instead of npm when required.
 ### Day 27 - Routing and Context
 
 - React Router integration
-- Shared layouts and navigation
-- Dynamic user details routes
+- Shared layouts
+- Dynamic routes
 - Missing-record handling
-- Shared preferences provider
-- Functional Settings page
+- Preferences Context
 
 ### Day 28 - API Integration
 
-- Reusable API service
+- Reusable API services
 - Runtime response validation
-- API data normalization
-- Generic asynchronous React Hook
-- Loading, empty, success and error states
-- Retry and refresh functionality
-- Search, role filtering and sorting
-- Request cancellation
-- Chrome Network inspection
-- API response overrides for testing
+- Generic asynchronous Hook
+- Loading, empty and error states
+- Search, filtering and sorting
+- Stale-response protection
 
-## Quality Assurance
+### Day 29 - Testing and Quality Assurance
 
-Development checks:
-
-- Clean dependency installation
-- Oxlint
-- TypeScript compilation
-- Vite production build
-
-Manual test scenarios:
-
-- Dashboard and navigation regression
-- Controlled form validation
-- Direct URL navigation and refresh
-- Responsive layouts and keyboard controls
-- Successful API responses
-- Empty API responses
-- Malformed API records
-- Offline errors and retry
-- Missing user identifiers
-- Request cancellation
-- Combined search and filters
-
-Automated behavioral tests are planned.
+- Vitest testing infrastructure
+- React Testing Library
+- Component and interaction tests
+- Mocked API service tests
+- Deterministic request-race tests
+- React Profiler analysis
+- State colocation
+- Route focus management
+- Accessibility regression tests
 
 ## Technical Challenges
 
-### Render Purity
-
-Moved the current-year calculation outside
-Layout to resolve a React purity warning.
-
-### Invalid Browser Data
-
-Implemented validation and fallback defaults
-for corrupted localStorage records.
-
-### Duplicate Submissions
-
-Used pending state and a ref-based lock
-to prevent overlapping submissions.
-
-### Windows Dependency File Lock
-
-Resolved an EPERM installation error by
-stopping Node.js processes before reinstalling.
-
-### Shared State Ownership
-
-Moved display preferences into Context
-to avoid duplicate state across pages.
-
-### API Response Validation
-
-Validated unknown JSON data before converting
-it into typed application records.
-
-### Request Race Conditions
-
-Used AbortController, Effect cleanup and
-request identity checks to protect against
-obsolete asynchronous results.
-
-### Empty API Responses
-
-Used Chrome Local Overrides to simulate
-an empty users array and verify zero counts.
+- Resolved React render purity warnings.
+- Recovered from corrupted localStorage data.
+- Prevented overlapping feedback submissions.
+- Resolved Windows dependency file locks.
+- Centralized shared display preferences.
+- Validated external JSON at the service boundary.
+- Prevented stale asynchronous responses.
+- Tested empty APIs using browser overrides.
+- Reduced the scope of modal-related renders.
+- Added route-change focus management.
 
 ## Deployment Considerations
 
-BrowserRouter requires SPA fallback support
-from the production hosting server.
+BrowserRouter requires the production
+hosting server to support SPA fallback.
 
-Direct routes must work without previous
+Direct URLs must work without previous
 client-side navigation.
 
 ## Planned Features
 
-- Dashboard charts
-- Orders and additional data screens
-- Automated behavioral tests
+- Interactive dashboard charts
+- Additional data-driven screens
+- Dashboard presentation improvements
 - Next.js migration
 - Tailwind CSS
 - Production deployment
 
 ## Current Limitations
 
-- Dashboard statistics use demo data.
-- The user directory uses fictional API data.
-- Only up to 20 users are loaded at a time.
-- Filters operate on the loaded records.
-- API availability depends on DummyJSON.
+- Dashboard statistics use demonstration data.
+- User accounts are fictional API records.
+- Filters operate on up to 20 loaded users.
 - User roles are not authorization permissions.
-- Watchlist statuses are user-managed labels.
 - Feedback submission is simulated.
+- Watchlist labels do not represent live monitoring.
 - Authentication is not implemented.
 - Report export is not implemented.
 - Counter is a temporary learning exercise.
+- Accessibility compliance is not fully audited.
+- The application is not yet deployed.
 
 ## Live Demo
 
