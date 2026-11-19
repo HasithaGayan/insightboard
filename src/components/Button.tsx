@@ -1,20 +1,25 @@
 
-import type { ReactNode } from "react";
+import type {
+    ReactNode,
+    MouseEventHandler,
+} from "react";
 
 interface ButtonProps {
     children: ReactNode;
-    onClick?: () => void;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
     disabled?: boolean;
+    type?: "button" | "submit" | "reset";
 }
 
 function Button({
     children,
     onClick,
     disabled = false,
+    type = "button",
 }: ButtonProps) {
     return (
         <button
-            type="button"
+            type={type}
             onClick={onClick}
             disabled={disabled}
         >

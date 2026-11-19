@@ -1,0 +1,49 @@
+
+.project-dialog {
+    width: calc(100% - 32px);
+    max-width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 28px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.project-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.project-dialog h2 {
+    color: #60a5fa;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.project-dialog p {
+    color: var(--color-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.dialog-details {
+    padding: 16px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.dialog-details h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.project-dialog button {
+    width: 100%;
+    margin: 0;
+}
