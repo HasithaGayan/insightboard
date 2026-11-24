@@ -6,6 +6,7 @@ import Watchlist from "../components/Watchlist";
 import FeedbackForm from "../components/FeedbackForm";
 import DashboardActions from "../components/DashboardActions";
 import RevenueChart from "../components/RevenueChart";
+import SalesAnalytics from "../components/SalesAnalytics";
 
 import { dashboardStats } from "../data/dashboardStats";
 import { usePreferences } from "../context/preferencesContext";
@@ -22,6 +23,9 @@ function DashboardPage() {
         <>
             <section>
                 <h2>Dashboard Overview</h2>
+                <SalesAnalytics />
+                <h3>Demonstration Dashboard</h3>
+                <p>The following original statistics use illustrative data.</p>
 
                 <Button onClick={toggleChanges}>
                     {preferences.showChanges
